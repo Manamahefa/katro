@@ -179,7 +179,8 @@ class Game {
         this.player.getLavaka<Lavaka>(start).setIsanVato(0)
         this.steps_nbr = 0
 
-        do {
+        let time = setInterval(() => {
+            debugger
             this.current_index = Math.abs((start + this.steps_nbr + (isRight?1:-1) + 8) % 8)
             let n: number = this.player.getLavaka<Lavaka>(this.current_index).getIsanVato()
             this.player.getLavaka<Lavaka>(this.current_index).setIsanVato(n+1)
@@ -202,19 +203,22 @@ class Game {
             } else {
                 isRight?this.steps_nbr+=1:this.steps_nbr-=1
             }
-  
-        } while(!this.isMandry())
 
-        this.player.setScore()
-        this.adve.setScore()
-        this.player.showScore(this.player.getScore())
-        this.adve.showScore(this.adve.getScore())
-        this.vato_noraisina = 0
-        this.current_index = 0
-        if(this.endGame()) {
-            alert(`${this.player.getName()} nandresy`)
-        }
-        this.switchPlayer()
+            if(this.isMandry()) {
+                clearInterval(time)
+                this.player.setScore()
+                this.adve.setScore()
+                this.player.showScore(this.player.getScore())
+                this.adve.showScore(this.adve.getScore())
+                this.vato_noraisina = 0
+                this.current_index = 0
+                if(this.endGame()) {
+                    alert(`${this.player.getName()} nandresy`)
+                }
+                
+                this.switchPlayer()
+            }
+        }, 1000)
         
     }
     private lanyV1() {
