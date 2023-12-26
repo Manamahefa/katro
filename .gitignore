@@ -1,6 +1,0 @@
-.gitignore
-/js
-*.js
-package.json
-package-lock.json
-tsconfig.json
